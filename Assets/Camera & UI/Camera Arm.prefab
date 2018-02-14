@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 20104767364700998}
   - component: {fileID: 124564218353768624}
   - component: {fileID: 81640260930329222}
-  - component: {fileID: 114044589548681502}
+  - component: {fileID: 114095612383895256}
   - component: {fileID: 114345721038959156}
   m_Layer: 0
   m_Name: Main Camera
@@ -117,7 +117,7 @@ AudioListener:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1410737541306946}
   m_Enabled: 1
---- !u!114 &114044589548681502
+--- !u!114 &114095612383895256
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -125,11 +125,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1410737541306946}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef43bf1094a105d428417c9af9e2d489, type: 3}
+  m_Script: {fileID: 11500000, guid: d02853f5d34bd8f429969ac34c466d07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerPriorities: 0900000008000000
-  distanceToBackground: 100
+  layerPriorities: 
 --- !u!114 &114345721038959156
 MonoBehaviour:
   m_ObjectHideFlags: 1
