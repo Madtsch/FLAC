@@ -41,13 +41,13 @@ public class PlayerMovement : MonoBehaviour
         {
             case enemyLayerNumber:
                 // navigate to the enemy
-                print("Click on enemy");
+                //print("Click on enemy");
                 GameObject enemy = raycastHit.collider.gameObject;
                 aiCharacterControl.SetTarget(enemy.transform);
                 break;
             case walkableLayerNumber:
                 // navigate to point on the ground
-                print("Click on ground");
+                //print("Click on ground");
                 walkTarget.transform.position = raycastHit.point;
                 aiCharacterControl.SetTarget(walkTarget.transform);
                 break;
@@ -59,17 +59,17 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Todo make this get called again
-    void ProcessDirectMovement()
-    {
-        float h = Input.GetAxis("Horizontal");
-        float v = Input.GetAxis("Vertical");
+    //void ProcessDirectMovement()
+    //{
+    //    float h = Input.GetAxis("Horizontal");
+    //    float v = Input.GetAxis("Vertical");
 
-        // calculate camera relative direction to move:
-        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
-        Vector3 movement = v * cameraForward + h * Camera.main.transform.right;
+    //    // calculate camera relative direction to move:
+    //    Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+    //    Vector3 movement = v * cameraForward + h * Camera.main.transform.right;
 
-        thirdPersonCharacter.Move(movement, false, false);
-    }
+    //    thirdPersonCharacter.Move(movement, false, false);
+    //}
 
     
 }

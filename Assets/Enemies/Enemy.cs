@@ -10,11 +10,14 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     [SerializeField] float attackRadius = 8f;
     [SerializeField] float damagePerShot = 9f;
-    
+    [SerializeField] float secondsBetweenShots = 1f;
+    [SerializeField] Vector3 aimOffset = new Vector3(0, 1f, 0);
+
     [SerializeField] GameObject projectileToUse;
     [SerializeField] GameObject projectileSocket;
 
-    float currentHealthPoints = 100f;
+    float currentHealthPoints;
+    bool isAttacking = false;
     AICharacterControl aiCharacterControl = null;
     GameObject player = null;
 
@@ -23,21 +26,33 @@ public class Enemy : MonoBehaviour, IDamageable {
     public void TakeDamage(float damage)
     {
         currentHealthPoints = Mathf.Clamp(currentHealthPoints - damage, 0f, maxHealthPoints);
+        if (currentHealthPoints <= 0f)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         aiCharacterControl = GetComponent<AICharacterControl>();
+        currentHealthPoints = maxHealthPoints;
     }
 
     private void Update()
     {
         float distanceToPlayer = Vector3.Distance(player.transform.position, transform.position);
 
-        if (distanceToPlayer <= attackRadius)
+        if (distanceToPlayer <= attackRadius && !isAttacking)
         {
-            SpawnProjectile();
+            isAttacking = true;
+            InvokeRepeating("SpawnProjectile", 0f, secondsBetweenShots);
+        }
+
+        if (distanceToPlayer > attackRadius)
+        {
+            isAttacking = false;
+            CancelInvoke("SpawnProjectile");
         }
 
         if (distanceToPlayer <= chaseRadius)
@@ -53,16 +68,13 @@ public class Enemy : MonoBehaviour, IDamageable {
 
     void SpawnProjectile()
     {
-        // todo slow this down
         GameObject newProjectile = Instantiate(projectileToUse, projectileSocket.transform.position, Quaternion.identity);
         Projectile projectileComponent = newProjectile.GetComponent<Projectile>();
-        projectileComponent.damageCaused = damagePerShot;
+        projectileComponent.SetDamage(damagePerShot);
 
-        Vector3 unitVectorToPlayer = (player.transform.position - projectileSocket.transform.position).normalized;
+        Vector3 unitVectorToPlayer = (player.transform.position + aimOffset - projectileSocket.transform.position).normalized;
         float projectileSpeed = projectileComponent.projectileSpeed;
         newProjectile.GetComponent<Rigidbody>().velocity = unitVectorToPlayer * projectileSpeed;
-        //projectile.AddForce();
-
     }
 
     void OnDrawGizmos()
@@ -73,7 +85,6 @@ public class Enemy : MonoBehaviour, IDamageable {
         // Draw chase sphere
         Gizmos.color = new Color(0f, 0f, 255f, .5f);
         Gizmos.DrawWireSphere(transform.position, chaseRadius);
-
     }
 
 }
