@@ -6,6 +6,9 @@
 /Assets/AssetStoreTools*
 /Assets/PostProcessing*
 /Assets/EasyRoads3D*
+/Assets/TextMesh Pro*
+/Assets/Materials/Store*
+/Assets/Utility/Store*
 
 # Visual Studio 2015 cache directory
 /.vs/

@@ -7,8 +7,8 @@ using UnityEngine.UI;
 public class PlayerHealthBar : MonoBehaviour
 {
 
-    RawImage healthBarRawImage;
-    Player player;
+    RawImage healthBarRawImage = null;
+    Player player = null;
 
     // Use this for initialization
     void Start()
